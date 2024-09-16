@@ -1,3 +1,5 @@
+from email.policy import default
+
 from dash import Dash, dcc, html, dash_table, Input, Output, State, callback
 
 import base64
@@ -5,6 +7,9 @@ import datetime
 import io
 
 import pandas as pd
+
+
+default_data = pd.read_csv('data/default data.csv')
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -84,6 +89,15 @@ def parse_contents(contents, filename, date):
 def update_output(contents, names, dates):
     if contents is not None:
         return parse_contents(contents, names, dates)
+    df = default_data
+    return dash_table.DataTable(
+            df.to_dict('records'),
+            [{'name': i, 'id': i} for i in df.columns]
+        )
+
+
+
+
 
 
 # TODO: Yearly Rainfall
