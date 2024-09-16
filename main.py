@@ -1,5 +1,3 @@
-from email.policy import default
-
 from dash import Dash, dcc, html, dash_table, Input, Output, State, callback
 
 import base64
